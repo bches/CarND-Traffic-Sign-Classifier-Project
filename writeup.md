@@ -19,8 +19,9 @@ The goals / steps of this project are the following:
 
 [//]: # (Image References)
 
-[image1]: ./class_labels.png "Class Labels Histogram"
-[image2]: ./examples/grayscale.jpg "Grayscaling"
+[image1]: ./class_labels.png "Class Labels Histogram, Test Data Set"
+[image1a]: ./class_labels_train.png "Class Labels Histogram, Training Data Set"
+[image1b]: ./class_labels_valid.png "Class Labels Histogram, Validation Data Set"
 [image3]: ./examples/random_noise.jpg "Random Noise"
 [image4]: ./examples/placeholder.png "Traffic Sign 1"
 [image5]: ./examples/placeholder.png "Traffic Sign 2"
@@ -42,7 +43,7 @@ You're reading it! and here is a link to my [project code](https://github.com/bc
 
 #### 1. Provide a basic summary of the data set. In the code, the analysis should be done using python, numpy and/or pandas methods rather than hardcoding results manually.
 
-I used the pandas library to calculate summary statistics of the traffic
+I used python to calculate summary statistics of the traffic
 signs data set:
 
 * The size of training set is 34687
@@ -53,16 +54,26 @@ signs data set:
 
 #### 2. Include an exploratory visualization of the dataset.
 
-Here is a histogram of the frequency of occurence of the class labels in the data set.
+Here is a histogram of the frequency of occurence of the class labels in the test data set.
 
-![Class Labels Histogram][image1]
+![Class Labels Histogram, Test Data Set][image1]
 
-And here are the individual counts of each class (in order from most occurences to fewest occurences):
+Similarly, the histograms for the training and validation sets are also provided.  
+
+![Class Labels Histogram, Training Data Set][image1a]
+
+![Class Labels Histogram, Validation Data Set][image1b]
+
+
+The general shape of the training data set seems to match that of the test data set.  However, the validation data set seems to have a different balance of class labels than the training or test data sets.
+
+
+And here are the individual counts of each class in the training data set (in order from most occurences to fewest occurences):
+
+The red line is the average count of a class label in the test data set.  The green dashed lines are one standard deviation above and below the average.  There are a couple of classes that are clearly underrepresented in the test data set.
 
 Most Common classes:
 (2, 2010), (1, 1980), (13, 1920), (12, 1890), (38, 1860), (10, 1800), (4, 1770), (5, 1650), (25, 1350), (9, 1320), (7, 1290), (3, 1260), (8, 1260), (11, 1170), (35, 1080), (18, 1080), (17, 990), (31, 690), (14, 690), (33, 599), (26, 540), (15, 540), (28, 480), (23, 450), (30, 390), (16, 360), (34, 360), (6, 360), (36, 330), (22, 330), (40, 300), (20, 300), (39, 270), (21, 270), (29, 240), (24, 240), (41, 210), (42, 210), (32, 210), (27, 210), (37, 180), (19, 180), (0, 180)
-
-
 
 
 
@@ -70,11 +81,7 @@ Most Common classes:
 
 #### 1. Describe how you preprocessed the image data. What techniques were chosen and why did you choose these techniques? Consider including images showing the output of each preprocessing technique. Pre-processing refers to techniques such as converting to grayscale, normalization, etc. (OPTIONAL: As described in the "Stand Out Suggestions" part of the rubric, if you generated additional data for training, describe why you decided to generate additional data, how you generated the data, and provide example images of the additional data. Then describe the characteristics of the augmented training set like number of images in the set, number of images for each class, etc.)
 
-As a first step, I decided to convert the images to grayscale because ...
-
-Here is an example of a traffic sign image before and after grayscaling.
-
-![alt text][image2]
+As a first step, 
 
 As a last step, I normalized the image data because ...
 
@@ -96,14 +103,17 @@ My final model consisted of the following layers:
 | Layer         		|     Description	        					| 
 |:---------------------:|:---------------------------------------------:| 
 | Input         		| 32x32x3 RGB image   							| 
-| Convolution 3x3     	| 1x1 stride, same padding, outputs 32x32x64 	|
+| Convolution 5x5     	| 1x1 stride, valid padding, outputs 28x28x6 	|
 | RELU					|												|
-| Max pooling	      	| 2x2 stride,  outputs 16x16x64 				|
-| Convolution 3x3	    | etc.      									|
-| Fully connected		| etc.        									|
-| Softmax				| etc.        									|
-|						|												|
-|						|												|
+| Max pooling	      	| 2x2 stride,  outputs 14x14x6 				|
+| Convolution 5x5	    | 1x1 stride, valid padding, outputs 10x10x16 	|
+| RELU					|												|
+| Max pooling	      	| 2x2 stride,  outputs 5x5x16 				|
+| Fully connected		| input: 400x1, output:n_classes*8x1			|
+| RELU					|												|
+| Fully connected		| input: n_classes*8x1, output:n_classes*4x1	|
+| RELU					|												|
+| Fully connected		| input: n_classes*4x1, output:n_classes*1x1	|
  
 
 
