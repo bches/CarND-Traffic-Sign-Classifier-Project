@@ -23,11 +23,11 @@ The goals / steps of this project are the following:
 [image1a]: ./class_labels_train.png "Class Labels Histogram, Training Data Set"
 [image1b]: ./class_labels_valid.png "Class Labels Histogram, Validation Data Set"
 [image3]: ./class_labels_train_aug.png "Class Labels Histogram, Training Data Set (Augmented)"
-[image4]: ./examples/german_traffic_signs_1.png "Traffic Sign 1"
-[image5]: ./examples/german_traffic_signs_2.png "Traffic Sign 2"
-[image6]: ./examples/german_traffic_signs_3.png "Traffic Sign 3"
-[image7]: ./examples/german_traffic_signs_4.png "Traffic Sign 4"
-[image8]: ./examples/german_traffic_signs_5.png "Traffic Sign 5"
+[image4]: ./german_traffic_signs_1.png "Traffic Sign 1"
+[image5]: ./german_traffic_signs_2.png "Traffic Sign 2"
+[image6]: ./german_traffic_signs_3.png "Traffic Sign 3"
+[image7]: ./german_traffic_signs_4.png "Traffic Sign 4"
+[image8]: ./german_traffic_signs_5.png "Traffic Sign 5"
 
 ## Rubric Points
 ### Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/481/view) individually and describe how I addressed each point in my implementation.  
@@ -108,11 +108,11 @@ My final model consisted of the following layers:
 | Convolution 5x5	    | 1x1 stride, valid padding, outputs 10x10x16 	|
 | RELU					|												|
 | Max pooling	      	| 2x2 stride,  outputs 5x5x16 				|
-| Fully connected		| input: 400x1, output:n_classes*20x1			|
+| Fully connected		| input: 400x1, output:n_classes\*20x1			|
 | RELU					|												|
-| Fully connected		| input: n_classes*20x1, output:n_classes*10x1	|
+| Fully connected		| input: n_classes\*20x1, output:n_classes\*10x1	|
 | RELU					|												|
-| Fully connected		| input: n_classes*10x1, output:n_classes*1x1	|
+| Fully connected		| input: n_classes\*10x1, output:n_classes\*1x1	|
  
  
 
