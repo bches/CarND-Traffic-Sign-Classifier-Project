@@ -153,31 +153,73 @@ Here are the results of the prediction:
 
 | Image			        |     Prediction	        					| 
 |:---------------------:|:---------------------------------------------:| 
-| Stop Sign      		| Stop sign   									| 
-| U-turn     			| U-turn 										|
-| Yield					| Yield											|
-| 100 km/h	      		| Bumpy Road					 				|
-| Slippery Road			| Slippery Road      							|
+| Speed limit (60km/h)  | Speed limit (80km/h) 							| 
+| Right of way  		| Speed limit (80km/h) 							|
+| Speed limit (30km/h)  | Speed limit (80km/h)  						|
+| Priority Road 		| Speed limit (80km/h)  		 				|
+| General Caution		| Speed limit (80km/h)  						|
 
 
-The model was able to correctly guess 4 of the 5 traffic signs, which gives an accuracy of 80%. This compares favorably to the accuracy on the test set of ...
+The model was able to correctly guess 0 of the 5 traffic signs, which gives an accuracy of 0%. This compares poorly against the test data.
 
 #### 3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
 
 The code for making predictions on my final model is located in the 11th cell of the Ipython notebook.
 
-For the first image, the model is relatively sure that this is a stop sign (probability of 0.6), and the image does contain a stop sign. The top five soft max probabilities were
+For the first image, the model is not very sure what the sign is. The top five soft max probabilities were
 
 | Probability         	|     Prediction	        					| 
 |:---------------------:|:---------------------------------------------:| 
-| .60         			| Stop sign   									| 
-| .20     				| U-turn 										|
-| .05					| Yield											|
-| .04	      			| Bumpy Road					 				|
-| .01				    | Slippery Road      							|
+| 9.97097492e-01    	| Speed limit (80km/h)  						| 
+| 1.18999800e-03		| Speed limit (60km/h)							|
+| 8.14622501e-04		| Speed limit (100km/h)							|
+| 5.05198608e-04		| No passing			        				|
+| 2.15656866e-04	    | Right-of-way at the next intersection			|
 
 
 For the second image ... 
+
+| Probability         	|     Prediction	        					| 
+|:---------------------:|:---------------------------------------------:| 
+| 9.97097492e-01    	| Speed limit (80km/h)  						| 
+| 1.325198608e-03		| No passing			        				|
+| 1.18999800e-03		| Speed limit (60km/h)							|
+| 8.14622501e-04		| Speed limit (100km/h)							|
+| 2.15656866e-04	    | Right-of-way at the next intersection			|
+
+For the third image ... 
+
+| Probability         	|     Prediction	        					| 
+|:---------------------:|:---------------------------------------------:| 
+| 9.96097492e-01    	| Speed limit (80km/h)  						| 
+| 1.18999800e-03		| Speed limit (60km/h)							|
+| 8.14622501e-04		| Speed limit (100km/h)							|
+| 5.05198608e-04		| No passing			        				|
+| 2.15656866e-04	    | Right-of-way at the next intersection			|
+
+For the fourth image ... 
+
+| Probability         	|     Prediction	        					| 
+|:---------------------:|:---------------------------------------------:| 
+| 9.96097492e-01    	| Speed limit (80km/h)  						| 
+| 1.18999800e-03		| Speed limit (60km/h)							|
+| 8.14622501e-04		| Speed limit (100km/h)							|
+| 5.05198608e-04		| No passing			        				|
+| 2.15656866e-04	    | Right-of-way at the next intersection			|
+
+For the fifth image ... 
+
+| Probability         	|     Prediction	        					| 
+|:---------------------:|:---------------------------------------------:| 
+| 9.97097492e-01    	| Speed limit (80km/h)  						| 
+| 1.18999800e-03		| Speed limit (60km/h)							|
+| 7.735e-04     	    | Right-of-way at the next intersection			|
+| 7.14622501e-04		| Speed limit (100km/h)							|
+| 5.05198608e-04		| No passing			        				|
+
+
+
+
 
 ### (Optional) Visualizing the Neural Network (See Step 4 of the Ipython notebook for more details)
 #### 1. Discuss the visual output of your trained network's feature maps. What characteristics did the neural network use to make classifications?
