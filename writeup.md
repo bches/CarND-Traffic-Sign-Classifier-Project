@@ -19,15 +19,15 @@ The goals / steps of this project are the following:
 
 [//]: # (Image References)
 
-[image1]: ./class_labels.png "Class Labels Histogram, Test Data Set"
+[image1]: ./class_labels_test.png "Class Labels Histogram, Test Data Set"
 [image1a]: ./class_labels_train.png "Class Labels Histogram, Training Data Set"
 [image1b]: ./class_labels_valid.png "Class Labels Histogram, Validation Data Set"
-[image3]: ./examples/random_noise.jpg "Random Noise"
-[image4]: ./examples/placeholder.png "Traffic Sign 1"
-[image5]: ./examples/placeholder.png "Traffic Sign 2"
-[image6]: ./examples/placeholder.png "Traffic Sign 3"
-[image7]: ./examples/placeholder.png "Traffic Sign 4"
-[image8]: ./examples/placeholder.png "Traffic Sign 5"
+[image3]: ./class_labels_train_aug.png "Class Labels Histogram, Training Data Set (Augmented)"
+[image4]: ./examples/german_traffic_signs_1.png "Traffic Sign 1"
+[image5]: ./examples/german_traffic_signs_2.png "Traffic Sign 2"
+[image6]: ./examples/german_traffic_signs_3.png "Traffic Sign 3"
+[image7]: ./examples/german_traffic_signs_4.png "Traffic Sign 4"
+[image8]: ./examples/german_traffic_signs_5.png "Traffic Sign 5"
 
 ## Rubric Points
 ### Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/481/view) individually and describe how I addressed each point in my implementation.  
@@ -81,19 +81,18 @@ Most Common classes:
 
 #### 1. Describe how you preprocessed the image data. What techniques were chosen and why did you choose these techniques? Consider including images showing the output of each preprocessing technique. Pre-processing refers to techniques such as converting to grayscale, normalization, etc. (OPTIONAL: As described in the "Stand Out Suggestions" part of the rubric, if you generated additional data for training, describe why you decided to generate additional data, how you generated the data, and provide example images of the additional data. Then describe the characteristics of the augmented training set like number of images in the set, number of images for each class, etc.)
 
-As a first step, 
+As a first step, I stripped out some images from the training data that were all black.  The problem with these images is that are mislabeled as certain signs and I did not want my neural network training on that.
 
-As a last step, I normalized the image data because ...
+As a last step, I normalized the image data because this neural network expects 0 mean data between -1 and 1.  I did not get the mean to exactly 0 but got it closer and did get it in between -1 and 1.
 
-I decided to generate additional data because ... 
+I decided to generate additional data because there were a few classes in the training set that were underrepresented as shown above.
 
-To add more data to the the data set, I used the following techniques because ... 
+To add more data to the the data set, I iterated through each label that was underrepresented and concatenated onto the data set a number of copies of an image corresponding to that label.  The number of copies to add was calculated as the number of copies it would take to bring the most underrepresented labels up to what was prevoiusly the average count for the data set. 
 
-Here is an example of an original image and an augmented image:
+![Class Labels Histogram, Training Data Set (Augmented)][image3]
 
-![alt text][image3]
 
-The difference between the original data set and the augmented data set is the following ... 
+The difference between the original data set and the augmented data set is the distribution of class labels.
 
 
 #### 2. Describe what your final model architecture looks like including model type, layers, layer sizes, connectivity, etc.) Consider including a diagram and/or table describing the final model.
@@ -109,36 +108,32 @@ My final model consisted of the following layers:
 | Convolution 5x5	    | 1x1 stride, valid padding, outputs 10x10x16 	|
 | RELU					|												|
 | Max pooling	      	| 2x2 stride,  outputs 5x5x16 				|
-| Fully connected		| input: 400x1, output:n_classes*8x1			|
+| Fully connected		| input: 400x1, output:n_classes*20x1			|
 | RELU					|												|
-| Fully connected		| input: n_classes*8x1, output:n_classes*4x1	|
+| Fully connected		| input: n_classes*20x1, output:n_classes*10x1	|
 | RELU					|												|
-| Fully connected		| input: n_classes*4x1, output:n_classes*1x1	|
+| Fully connected		| input: n_classes*10x1, output:n_classes*1x1	|
+ 
  
 
 
 #### 3. Describe how you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
 
-To train the model, I used an ....
+To train the model, I used 30 batches of 128 images each.  I used the Adam optimizer and kept the learning rate at 0.001.  The optimizer minimized the cross-entropy between the label of the given image and the softamx of its output from the neural network architecture described in the previous section.
+
 
 #### 4. Describe the approach taken for finding a solution and getting the validation set accuracy to be at least 0.93. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
 
 My final model results were:
-* training set accuracy of ?
-* validation set accuracy of ? 
-* test set accuracy of ?
+* training set accuracy of 99.9%
+* validation set accuracy of 94.1%
+* test set accuracy of 93.2%
 
-If an iterative approach was chosen:
-* What was the first architecture that was tried and why was it chosen?
-* What were some problems with the initial architecture?
-* How was the architecture adjusted and why was it adjusted? Typical adjustments could include choosing a different model architecture, adding or taking away layers (pooling, dropout, convolution, etc), using an activation function or changing the activation function. One common justification for adjusting an architecture would be due to overfitting or underfitting. A high accuracy on the training set but low accuracy on the validation set indicates over fitting; a low accuracy on both sets indicates under fitting.
-* Which parameters were tuned? How were they adjusted and why?
-* What are some of the important design choices and why were they chosen? For example, why might a convolution layer work well with this problem? How might a dropout layer help with creating a successful model?
+I chose the LeNet architecture and used it pretty much as is with some minor tweaks to the fully connected layers as well as some pruning and augmentation of the training data.  My choices on the architecture are described in the following paragraph.
 
-If a well known architecture was chosen:
-* What architecture was chosen?
-* Why did you believe it would be relevant to the traffic sign application?
-* How does the final model's accuracy on the training, validation and test set provide evidence that the model is working well?
+I have two convolutional layers followed by three fully connected layers.  The two convolutional layers are both 5x5 convolutions with 2x2 max pooling to reduce the size of the image for successive stages.  The fully connected layers treat the image as flat.  The first fully connected layer actually expands the size of the data from 400x1 to 860x1 (which is parameterized as 20 times the number of classes, 43).  The second fully connected layer drops this down to 430x1 (10 x number of class labels).  The final fully connected layer outputs class labels of the correct size, n_classes x 1.  I found that keeping fully connected layers before reducing it to the final output worked better than trying to make the flattened output of the fully connected layers smaller sooner, with negligible impact on run time for this project.
+
+I tried dropout, but decided not to use it in the final architecture as I was able to achieve 93% test accuracy with the methods described above.
  
 
 ### Test a Model on New Images
