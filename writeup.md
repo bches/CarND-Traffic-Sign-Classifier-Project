@@ -145,7 +145,9 @@ Here are five German traffic signs that I found on the web:
 ![alt text][image4] ![alt text][image5] ![alt text][image6] 
 ![alt text][image7] ![alt text][image8]
 
-The first image might be difficult to classify because ...
+The first image might be difficult to classify because it looks like it has a piece of another image in it.  I have scalled all the signs down to 32x32, so there should be no problem there.  The signs do appear to be a bit brighter than some of the other signs in the data set on which I trained my neural network.  The angle of all of the traffic signs is head on, so there should be no problem there.  The background of one of the signs is very white, which none of the other signs has.  I wouldn't think that would be a problem, but it could be.
+
+
 
 #### 2. Discuss the model's predictions on these new traffic signs and compare the results to predicting on the test set. At a minimum, discuss what the predictions were, the accuracy on these new predictions, and compare the accuracy to the accuracy on the test set (OPTIONAL: Discuss the results in more detail as described in the "Stand Out Suggestions" part of the rubric).
 
